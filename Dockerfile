@@ -21,28 +21,35 @@ COPY backend/ ./
 RUN npm run build
 
 # ============================================================
-# Stage 3: Production Runner
+# Stage 3: Production Runner (HF Spaces & Cloud Docker Compatible)
 # ============================================================
 FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=5000
+ENV PORT=7860
 ENV GOOGLE_DRIVE_TARGET_EMAIL="umeshmabatuwana@gmail.com"
 
+# Set up non-root user (UID 1000) for Hugging Face Spaces & security
+RUN adduser -D -u 1000 user && mkdir -p /app/backend/prisma && chown -R user:user /app
+
 # Copy backend dependencies and build
-COPY backend/package*.json ./backend/
-COPY backend/prisma ./backend/prisma/
+COPY --chown=user:user backend/package*.json ./backend/
+COPY --chown=user:user backend/prisma ./backend/prisma/
 WORKDIR /app/backend
 RUN npm ci --omit=dev
 RUN npx prisma generate
 
-COPY --from=backend-builder /app/backend/dist ./dist
+COPY --chown=user:user --from=backend-builder /app/backend/dist ./dist
 # Copy built frontend assets for unified hosting
-COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
+COPY --chown=user:user --from=frontend-builder /app/frontend/dist /app/frontend/dist
 
-# Expose production port
-EXPOSE 5000
+RUN chown -R user:user /app
+
+USER user
+
+# Expose cloud port
+EXPOSE 7860
 
 # Apply database schema and launch unified server
 CMD ["sh", "-c", "npx prisma db push && node dist/server.js"]

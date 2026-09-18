@@ -1,3 +1,13 @@
+---
+title: JADE Office Management System
+emoji: 🏢
+colorFrom: green
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # JADE System - Enterprise Office Management System
 
 A full-stack, enterprise-grade Office Management System engineered with **Role-Based Access Control (RBAC)** across 7 designated accounts, native **Google Drive API (v3)** cloud storage integration, a tailored **Jade Green & Charcoal design system**, and dedicated executive, operational, and financial workspaces.
