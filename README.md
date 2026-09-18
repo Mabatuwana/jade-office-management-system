@@ -10,6 +10,9 @@ pinned: false
 
 # JADE System - Enterprise Office Management System
 
+[![Deploy to Koyeb (Free, 24/7, No Card)](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&repository=Mabatuwana/jade-office-management-system&branch=main&name=jade-office&builder=docker&ports=7860;http;/&env[NODE_ENV]=production&env[PORT]=7860&env[DATABASE_URL]=file:./dev.db&env[GOOGLE_DRIVE_TARGET_EMAIL]=umeshmabatuwana@gmail.com&env[JWT_SECRET]=jade_production_jwt_key_lk_paint_2026)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Mabatuwana/jade-office-management-system)
+
 A full-stack, enterprise-grade Office Management System engineered with **Role-Based Access Control (RBAC)** across 7 designated accounts, native **Google Drive API (v3)** cloud storage integration, a tailored **Jade Green & Charcoal design system**, and dedicated executive, operational, and financial workspaces.
 
 ---
