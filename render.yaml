@@ -3,8 +3,8 @@
     name: jade-office-management-system
     runtime: node
     plan: free
-    buildCommand: cd backend && npm install && npx prisma generate && npm run build && cd ../frontend && npm install && npm run build
-    startCommand: cd backend && npx prisma db push && node dist/server.js
+    buildCommand: npm run build
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
