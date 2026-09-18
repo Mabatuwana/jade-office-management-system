@@ -1,0 +1,18 @@
+﻿services:
+  - type: web
+    name: jade-office-management-system
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm install && npx prisma generate && npm run build && cd ../frontend && npm install && npm run build
+    startCommand: cd backend && npx prisma db push && node dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: file:./dev.db
+      - key: GOOGLE_DRIVE_TARGET_EMAIL
+        value: umeshmabatuwana@gmail.com

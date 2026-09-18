@@ -1,0 +1,22 @@
+﻿version: '3.8'
+
+services:
+  jade-office:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jade-office-system
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - JWT_SECRET=jade_production_jwt_key_lk_paint_2026
+      - DATABASE_URL=file:./dev.db
+      - GOOGLE_DRIVE_TARGET_EMAIL=umeshmabatuwana@gmail.com
+    volumes:
+      - jade-data:/app/backend/prisma
+
+volumes:
+  jade-data:

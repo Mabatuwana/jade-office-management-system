@@ -1,0 +1,10 @@
+﻿{
+  "name": "jade-office-management-system",
+  "version": "1.0.0",
+  "description": "JADE Office Management System - Enterprise Paint Manufacturing Suite",
+  "private": true,
+  "scripts": {
+    "build": "cd backend && npm install && npx prisma generate && npm run build && cd ../frontend && npm install && npm run build",
+    "start": "cd backend && npx prisma db push && node dist/server.js"
+  }
+}

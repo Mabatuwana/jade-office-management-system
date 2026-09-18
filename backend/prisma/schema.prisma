@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String            @id @default(uuid())
+  email           String            @unique
+  name            String
+  passwordHash    String
+  role            String            // MANAGING_DIRECTOR, OPERATIONAL_MANAGER, TECH_SALES_MANAGER, FINANCE_ASSISTANT
+  avatarUrl       String?
+  driveAvatarId   String?
+  themePreference String            @default("LIGHT") // LIGHT, DARK
+  department      String
+  assistantAuthority String?       // FA1_SALES_OFFICERS, FA2_PETTY_CASH, FA3_CUSTOMER_CREDIT, FA4_STOCK_INVOICING
+  lastLoginAt     DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  files           FileRecord[]
+  transactions    FinancialRecord[]
+  auditLogs       AuditLog[]
+}
+
+model FileRecord {
+  id             String    @id @default(uuid())
+  fileName       String
+  originalName   String
+  mimeType       String
+  sizeBytes      Int
+  driveFileId    String    @unique
+  driveWebView   String
+  driveFolder    String    // Finance, Operations, Sales, Profiles
+  category       String    // Invoice, Receipt, Report, Proposal, Avatar, General
+  uploaderId     String
+  uploader       User      @relation(fields: [uploaderId], references: [id])
+  relatedId      String?
+  isArchived     Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model FinancialRecord {
+  id            String    @id @default(uuid())
+  title         String
+  category      String    // Payroll, Software, Office Rent, Client Retainer, Travel, Hardware, Marketing
+  type          String    // INCOME, EXPENSE
+  amount        Float
+  currency      String    @default("LKR")
+  date          DateTime
+  status        String    @default("APPROVED") // PENDING, APPROVED, REJECTED
+  referenceNo   String?
+  notes         String?
+  creatorId     String
+  creator       User      @relation(fields: [creatorId], references: [id])
+  driveFileId   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model OperationalMetric {
+  id            String    @id @default(uuid())
+  title         String
+  department    String    // Operations, TechSales
+  metricType    String    // Milestone, Pipeline, SLA, Productivity
+  targetValue   Float
+  currentValue  Float
+  unit          String    // %, LKR, Leads, Projects
+  status        String    // ON_TRACK, AT_RISK, COMPLETED
+  dateRecorded  DateTime  @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model SalesOfficerPerformance {
+  id               String   @id @default(uuid())
+  name             String
+  avatarUrl        String?
+  area             String   // e.g. Colombo Central, Kandy Metro, Gampaha, Galle Coastal, Kurunegala, Jaffna, Negombo
+  salesTarget      Float    // in LKR
+  salesActual      Float    // in LKR
+  collectionTarget Float    // in LKR
+  collectionActual Float    // in LKR
+  month            Int      // 1 - 12
+  year             Int      // e.g. 2025, 2026
+  createdAt        DateTime @default(now())
+}
+
+model CustomerRanking {
+  id               String   @id @default(uuid())
+  customerName     String
+  businessType     String?  // Wholesale, Retail Chain, Supermarket, Hardware, Distributor
+  assignedOfficer  String
+  area             String
+  cashPayments     Float    // in LKR
+  creditsTaken     Float    // in LKR
+  creditLimit      Float    @default(5000000) // in LKR
+  month            Int
+  year             Int
+  createdAt        DateTime @default(now())
+}
+
+model PettyCashRecord {
+  id          String   @id @default(uuid())
+  voucherNo   String
+  description String
+  category    String   // Refreshments, Courier & Post, Transport, Office Stationery, Cleaning, Maintenance, Fuel
+  amount      Float    // in LKR
+  date        DateTime
+  spentBy     String
+  approvedBy  String
+  createdAt   DateTime @default(now())
+}
+
+model InventoryProduct {
+  id             String   @id @default(uuid())
+  sku            String   @unique
+  name           String
+  mainCategory   String   @default("Domestic") // Domestic, Industrial
+  subCategory    String   @default("Woodshield") // Woodshield, Masoguard, Decoratives, Eco Cleaners, Metashield, Tyreshield
+  category       String   // Sub-brand / Coating Type
+  warehouseStock Int
+  factoryStock   Int
+  unit           String   // Litres, Cans, Pails, Units, Packs
+  minThreshold   Int
+  unitPriceLKR   Float
+  updatedAt      DateTime @updatedAt
+}
+
+model Invoice {
+  id                 String    @id @default(uuid())
+  invoiceNumber      String    @unique
+  customerName       String
+  customerArea       String?
+  issueDate          DateTime  @default(now())
+  dueDate            DateTime?
+  status             String    @default("ISSUED") // ISSUED, PAID, PENDING, CANCELLED
+  itemsJson          String    // JSON stringified array of items
+  subTotalLKR        Float
+  taxLKR             Float     @default(0)
+  totalAmountLKR     Float
+  notes              String?
+  issuedById         String
+  issuedByName       String
+  stockDeductedFrom  String    @default("WAREHOUSE") // WAREHOUSE, FACTORY, NONE
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
