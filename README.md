@@ -8,17 +8,18 @@ A full-stack, enterprise-grade Office Management System engineered with **Role-B
 
 The system is preconfigured with **7 designated accounts** mapped to specific operational permissions:
 
-| # | Name | Email | Role | Department | Workspace Access |
-|---|------|-------|------|------------|------------------|
-| 1 | **Eleanor Vance** | `md@jade.office` | `MANAGING_DIRECTOR` | Executive Board | Executive Suite, Global Financial Audits, Cross-Departmental Drive Explorer |
-| 2 | **Marcus Chen** | `operations@jade.office` | `OPERATIONAL_MANAGER` | Operations | Operational Board, Milestones, Operations Drive |
-| 3 | **Sophia Rodriguez** | `techsales@jade.office` | `TECH_SALES_MANAGER` | Technical & Sales | Pipeline & Deals, Proposals Drive |
-| 4 | **David Kim** | `finance1@jade.office` | `FINANCE_ASSISTANT` | Finance & Accounts | High-Speed Ledger, Voucher Uploads, Financial Reports |
-| 5 | **Amina Patel** | `finance2@jade.office` | `FINANCE_ASSISTANT` | Finance & Accounts | High-Speed Ledger, Voucher Uploads, Financial Reports |
-| 6 | **Lucas Dubois** | `finance3@jade.office` | `FINANCE_ASSISTANT` | Finance & Accounts | High-Speed Ledger, Voucher Uploads, Financial Reports |
-| 7 | **Elena Rostova** | `finance4@jade.office` | `FINANCE_ASSISTANT` | Finance & Accounts | High-Speed Ledger, Voucher Uploads, Financial Reports |
+| # | Name | Email | Role | Department | Workspace Access & Authority |
+|---|------|-------|------|------------|------------------------------|
+| 1 | **Chamikara De Silva** | `md@jade.office` | `MANAGING_DIRECTOR` | Executive Board | Executive Suite, Sales Officers Podium, Customer Rankings, Petty Cash Analytics, Dual-Pool Stock |
+| 2 | **Ridmi Kashani** | `operations@jade.office` | `OPERATIONAL_MANAGER` | Factory & Operations | Operational Board, Factory Milestones, Paint Batching & Operations Drive |
+| 3 | **Nishan Rajapaksha** | `techsales@jade.office` | `TECH_SALES_MANAGER` | Technical & Sales | Territory Pipeline, Paint Formulations & Proposals Drive |
+| 4 | **Shani Minoshika** | `finance1@jade.office` | `FINANCE_ASSISTANT` (FA1) | Finance & Accounts | **Exclusive**: Sales & Officer Registration, Monthly Sales/Collections, Live Leaderboard, CSV Export |
+| 5 | **Rashini Fernando** | `finance2@jade.office` | `FINANCE_ASSISTANT` (FA2) | Finance & Accounts | **Exclusive**: Petty Cash Vouchers, Category Filters (Expenses More vs. Minimals) |
+| 6 | **Thiwara Dilmini** | `finance3@jade.office` | `FINANCE_ASSISTANT` (FA3) | Finance & Accounts | **Exclusive**: Customer Collections, Credit Limits & Credit Exposure Gauges |
+| 7 | **Shalki Subashi** | `finance4@jade.office` | `FINANCE_ASSISTANT` (FA4) | Finance & Accounts | **Exclusive**: Dual-Pool Stock (Warehouse & Factory), Issue Invoices with Real-Time Stock Deduction |
 
 > **Default Password for all 7 accounts**: `Jade2026!`  
+> **Target Google Drive**: `umeshmabatuwana@gmail.com`  
 > *(Password change functionality is available to all users under **Profile & Security**)*.
 
 ---
